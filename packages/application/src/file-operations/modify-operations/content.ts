@@ -16,6 +16,20 @@ function removeSingleEmptyLines(content: string): string {
   return content.replace(/^\s*[\r\n]/gmu, "");
 }
 
+function removeLinkWithSurrounding(content: string): string {
+  // Regex to match github.com/standardebooks and surrounding text until ., !, ?, ,, or end of string
+  const regex =
+    /[^.!?,]*https?:\/\/github\.com\/standardebooks\S*[^.!?,]*[.!?,]?/giu;
+  let result = content.replace(regex, "").trim();
+
+  // Check if the last character is a comma and swap it to a period
+  if (result.charAt(result.length - 1) === ",") {
+    result = `${result.slice(0, -1)}.`;
+  }
+
+  return result;
+}
+
 async function adjustContentFile(
   contentOpf: string,
   addablePage: AvailablePage
@@ -116,6 +130,12 @@ function modifyMetaData(contentOpf: string, bookUrl: string): string {
     if (metaProperty && metaProperty.includes("se:")) {
       const updatedMetaProperty = metaProperty.replace("se:", "pdl:");
       metaTag.attr("property", updatedMetaProperty);
+    }
+
+    if (metaText.includes("github.com/standardebooks")) {
+      const removedLinkText = removeLinkWithSurrounding(metaText);
+
+      metaTag.text(removedLinkText);
     }
   });
 

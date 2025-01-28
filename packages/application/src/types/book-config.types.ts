@@ -1,19 +1,27 @@
 export type BookConfigFileKeys =
-  | "Amazon"
-  | "Apple"
   | "Author(s)"
-  | "Color"
   | "ID"
-  | "Kobo"
-  | "Lan"
-  | "Notes"
   | "PD - Text"
   | "PD - Title"
-  | "PDL Author"
   | "PDL book"
   | "StandardEbooks Github"
   | "Title"
   | "Translator(s)";
+
+/* Note: 
+  Unused Names, add these to config if you use them in code
+  Sheet name: "Ebooks", page: "Books"
+  | "Lan"
+  | "PDL Author"	
+  | "Birth"	
+  | "Death"	
+  | "𝕏"	
+  | "Apple"
+  | "Amazon"
+  | "Kobo"
+  | "Color"	
+  | "Notes"
+*/
 
 export type Book = Record<BookConfigFileKeys, string>;
 

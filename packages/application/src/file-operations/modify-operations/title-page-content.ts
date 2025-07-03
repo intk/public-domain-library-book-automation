@@ -19,14 +19,14 @@ export async function modifyTitlePageContent(
   book: Book,
   BookPaths: BookFolders
 ): Promise<void> {
-  const { azw3, epub, kepub } = BookPaths;
+  const { azw3, epub, kepub, pdf } = BookPaths;
   const {
     Title: title,
     "Author(s)": authors,
     "Translator(s)": translators,
   } = book;
 
-  for (const srcPath of [azw3, epub, kepub]) {
+  for (const srcPath of [azw3, epub, kepub, pdf]) {
     const svgPath = `${srcPath}/epub${TITLE_NAME}`;
     const path = `${srcPath}/epub/text/titlepage.xhtml`;
     const cssPath = `${srcPath}/epub/css/pdl/titlepage.css`;

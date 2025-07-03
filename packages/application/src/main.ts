@@ -7,6 +7,7 @@ import {
   getBooks,
   kepubBuild,
   modifyBooks,
+  pdfBuild,
 } from "~file-operations";
 import { createBookFileName } from "~helpers";
 import logger from "~logger";
@@ -24,6 +25,7 @@ async function processBook(book: Book) {
       epubBuild(bookPaths.epub, bookFileName, ID),
       kepubBuild(bookPaths.kepub, bookFileName, ID),
       azw3Build(bookPaths.azw3, bookFileName, ID),
+      pdfBuild(bookPaths.pdf, bookFileName, ID, title, author),
     ]);
   } catch (error: unknown) {
     logger.error(`${(error as Error).message}`, { ID: book.ID });

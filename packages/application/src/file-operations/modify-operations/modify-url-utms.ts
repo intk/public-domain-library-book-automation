@@ -11,13 +11,13 @@ export function modifyUrlUtms(
   rawTitle: string | undefined,
   rawAuthors: string | undefined
 ): void {
-  const { azw3, epub, kepub } = BookPaths;
+  const { azw3, epub, kepub, pdf } = BookPaths;
   const title = rawTitle || "";
   const authors = rawAuthors || "";
   const hasData = !!(title || authors);
   const titlePageAlt = hasData ? `${title} by ${authors}` : "Titlepage SVG";
 
-  for (const path of [azw3, epub, kepub]) {
+  for (const path of [azw3, epub, kepub, pdf]) {
     const modifiablePages = [
       `${path}/text/donate.xhtml`,
       `${path}/text/titlepage.xhtml`,

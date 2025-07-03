@@ -9,12 +9,14 @@ const TEXT_CUT = ", se: https://standardebooks.org/vocab/1.0" as const;
 export function removeMentions(
   azw3SrcPath: string,
   epubSrcPath: string,
-  kepubSrcPath: string
+  kepubSrcPath: string,
+  pdfSrcPath: string
 ): void {
   const folders = [
     `${azw3SrcPath}/text`,
     `${epubSrcPath}/text`,
     `${kepubSrcPath}/text`,
+    `${pdfSrcPath}/text`,
   ];
 
   folders.forEach((folder) => {

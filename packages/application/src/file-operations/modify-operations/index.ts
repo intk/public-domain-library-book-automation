@@ -6,6 +6,7 @@ export * from "./core-css";
 export * from "./kepub-css";
 export * from "./modify-svg-css";
 export * from "./modify-url-utms";
+export * from "./pdf-css";
 export * from "./public-domain-page-content";
 export * from "./remove-assets";
 export * from "./remove-mentions";

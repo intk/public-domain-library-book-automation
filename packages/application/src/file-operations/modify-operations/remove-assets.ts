@@ -1,8 +1,23 @@
 import * as fs from "node:fs";
 
-export function removeAssets(azw3: string, epub: string, kepub: string): void {
-  const textPaths = [`${azw3}/text`, `${epub}/text`, `${kepub}/text`];
-  const imagePaths = [`${azw3}/images`, `${epub}/images`, `${kepub}/images`];
+export function removeAssets(
+  azw3: string,
+  epub: string,
+  kepub: string,
+  pdf: string
+): void {
+  const textPaths = [
+    `${azw3}/text`,
+    `${epub}/text`,
+    `${kepub}/text`,
+    `${pdf}/text`,
+  ];
+  const imagePaths = [
+    `${azw3}/images`,
+    `${epub}/images`,
+    `${kepub}/images`,
+    `${pdf}/images`,
+  ];
 
   textPaths.forEach((path) => {
     if (fs.existsSync(`${path}/imprint.xhtml`)) {

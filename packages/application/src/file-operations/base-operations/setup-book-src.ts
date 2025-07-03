@@ -13,6 +13,7 @@ export function setupBookSrc(bookName: string): BookFolders {
     epub: `${BOOKS_FOLDER_PATH}/${bookName}/src-epub`,
     kepub: `${BOOKS_FOLDER_PATH}/${bookName}/src-kepub`,
     azw3: `${BOOKS_FOLDER_PATH}/${bookName}/src-azw3`,
+    pdf: `${BOOKS_FOLDER_PATH}/${bookName}/src-pdf`,
   };
 
   for (const src of Object.keys(bookSrc) as (keyof BookSrc)[]) {

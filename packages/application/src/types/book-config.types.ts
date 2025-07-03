@@ -27,7 +27,7 @@ export type Book = Record<BookConfigFileKeys, string>;
 
 export type Books = Book[];
 
-export type BookTypes = "azw3" | "epub" | "kepub";
+export type BookTypes = "azw3" | "epub" | "kepub" | "pdf";
 
 export type ModificationFolders = Record<BookTypes, string>;
 

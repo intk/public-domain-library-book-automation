@@ -9,10 +9,10 @@ export async function getBooks(
   const { "StandardEbooks Github": github } = book;
 
   const bookPaths = setupBookSrc(bookFileName);
-  const { azw3, epub, kepub, git } = bookPaths;
+  const { azw3, epub, kepub, pdf, git } = bookPaths;
 
   await pullBookSources(git, github);
-  for (const file of [azw3, epub, kepub]) {
+  for (const file of [azw3, epub, kepub, pdf]) {
     await copyFiles(`${git}/src/*`, file);
   }
 

@@ -5,6 +5,7 @@ import {
   modifyContent,
   modifyCoreCss,
   modifyKepubCss,
+  modifyPdfCss,
   modifyPublicDomainPageContent,
   modifySvgCss,
   modifyTitlePageContent,
@@ -21,24 +22,27 @@ export async function modifyBooks(
   name: string,
   bookUrl: string
 ): Promise<void> {
-  const { azw3, epub, kepub } = BookPaths;
+  const { azw3, epub, kepub, pdf } = BookPaths;
   const azw3SrcPath = `${azw3}/epub`;
   const epubSrcPath = `${epub}/epub`;
   const kepubSrcPath = `${kepub}/epub`;
+  const pdfSrcPath = `${pdf}/epub`;
 
-  removeAssets(azw3SrcPath, epubSrcPath, kepubSrcPath);
-  removeMentions(azw3SrcPath, epubSrcPath, kepubSrcPath);
-  addAssets(azw3SrcPath, epubSrcPath, kepubSrcPath, book, name);
+  removeAssets(azw3SrcPath, epubSrcPath, kepubSrcPath, pdfSrcPath);
+  removeMentions(azw3SrcPath, epubSrcPath, kepubSrcPath, pdfSrcPath);
+  addAssets(azw3SrcPath, epubSrcPath, kepubSrcPath, pdfSrcPath, book, name);
   modifyCoreCss({
     epub: epubSrcPath,
     kepub: kepubSrcPath,
     azw3: azw3SrcPath,
+    pdf: pdfSrcPath,
   });
 
   const addablePages = checkAddablePages(book, {
     epub: epubSrcPath,
     kepub: kepubSrcPath,
     azw3: azw3SrcPath,
+    pdf: pdfSrcPath,
   });
 
   await modifyToc(
@@ -46,6 +50,7 @@ export async function modifyBooks(
       epub: epubSrcPath,
       kepub: kepubSrcPath,
       azw3: azw3SrcPath,
+      pdf: pdfSrcPath,
     },
     addablePages
   );
@@ -55,6 +60,7 @@ export async function modifyBooks(
       epub: epubSrcPath,
       kepub: kepubSrcPath,
       azw3: azw3SrcPath,
+      pdf: pdfSrcPath,
     },
     addablePages,
     bookUrl
@@ -66,6 +72,7 @@ export async function modifyBooks(
       epub: epubSrcPath,
       kepub: kepubSrcPath,
       azw3: azw3SrcPath,
+      pdf: pdfSrcPath,
     },
     title,
     authors
@@ -77,8 +84,10 @@ export async function modifyBooks(
     epub: epubSrcPath,
     kepub: kepubSrcPath,
     azw3: azw3SrcPath,
+    pdf: pdfSrcPath,
   });
 
   modifyKepubCss(kepubSrcPath);
   modifyAzw3Css(azw3SrcPath);
+  modifyPdfCss(pdfSrcPath);
 }

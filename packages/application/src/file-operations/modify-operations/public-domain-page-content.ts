@@ -8,7 +8,7 @@ export async function modifyPublicDomainPageContent(
   book: Book,
   bookConfigs: BookFolders
 ): Promise<void> {
-  const { azw3, epub, kepub } = bookConfigs;
+  const { azw3, epub, kepub, pdf } = bookConfigs;
   const {
     "PD - Title": publicDomaiPageTitle,
     "PD - Text": publicDomaiPageContent,
@@ -18,7 +18,7 @@ export async function modifyPublicDomainPageContent(
     return;
   }
 
-  for (const srcPath of [azw3, epub, kepub]) {
+  for (const srcPath of [azw3, epub, kepub, pdf]) {
     const path = `${srcPath}/epub/text/public-domain.xhtml`;
     if (!fs.existsSync(path)) {
       continue;

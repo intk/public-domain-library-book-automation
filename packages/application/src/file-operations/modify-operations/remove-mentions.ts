@@ -4,8 +4,6 @@ import * as path from "node:path";
 import { CURRENT_DATE } from "~constants";
 import { readFile, writeFile } from "../helpers";
 
-const TEXT_CUT = ", se: https://standardebooks.org/vocab/1.0" as const;
-
 export function removeMentions(
   azw3SrcPath: string,
   epubSrcPath: string,
@@ -24,22 +22,37 @@ export function removeMentions(
     files.forEach((file) => {
       const filePath = path.join(folder, file);
       const data = readFile(filePath);
-      const newData = data.replace(new RegExp(TEXT_CUT, "giu"), "");
+
+      // Replace se: with pdl: in specific contexts only
+      const newData = data
+        .replace(/epub:type="se:/gu, 'epub:type="pdl:')
+        .replace(
+          /epub:prefix="[^"]*se: https:\/\/standardebooks\.org\/vocab\/1\.0[^"]*"/gu,
+          'epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/, pdl: https://publicdomainlibrary.org/vocab/1.0"'
+        );
+
       writeFile(filePath, newData);
     });
 
     const tocFile = path.join(folder, "../toc.xhtml");
     if (fs.existsSync(tocFile)) {
       const data = readFile(tocFile);
-      const newData = data.replace(new RegExp(TEXT_CUT, "giu"), "");
+
+      // Replace se: with pdl: in specific contexts only
+      const newData = data
+        .replace(/epub:type="se:/gu, 'epub:type="pdl:')
+        .replace(
+          /epub:prefix="[^"]*se: https:\/\/standardebooks\.org\/vocab\/1\.0[^"]*"/gu,
+          'epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/, pdl: https://publicdomainlibrary.org/vocab/1.0"'
+        );
+
       writeFile(tocFile, newData);
     }
 
     const onixFile = path.join(folder, "../onix.xml");
     if (fs.existsSync(onixFile)) {
       const data = readFile(onixFile);
-      const newData = data.replace(new RegExp(TEXT_CUT, "giu"), "");
-      const $ = cheerio.load(newData, { xmlMode: true });
+      const $ = cheerio.load(data, { xmlMode: true });
 
       $("SenderName").text("Public Domain Library");
       $("SentDateTime").text(CURRENT_DATE);

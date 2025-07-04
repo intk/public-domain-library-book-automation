@@ -93,7 +93,19 @@ function modifyMetaData(contentOpf: string, bookUrl: string): string {
 
   const pdlText = "Public Domain Library";
   const regex = /<a href="(?<url>[^&]+)">/gu;
-  $("package").removeAttr("prefix");
+
+  // Set the new package element attributes
+  const packageElement = $("package");
+  packageElement.attr("dir", "ltr");
+  packageElement.attr(
+    "prefix",
+    "pdl: https://publicdomainlibrary.org/vocab/1.0"
+  );
+  packageElement.attr("xml:lang", "en-US");
+
+  // Remove old xmlns attributes if they exist
+  packageElement.removeAttr("xmlns:dc");
+  packageElement.removeAttr("xmlns:pdl");
   const metadata = $("metadata");
   const meta = metadata.children("meta");
   const date = metadata.children("dc\\:date").first().text();

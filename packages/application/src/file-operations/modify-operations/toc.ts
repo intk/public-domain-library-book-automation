@@ -40,7 +40,7 @@ async function swapTocContent(
   if (landmarksOl) {
     landmarksOl.prepend(`
         <li>
-          <a href="/text/titlepage.xhtml" epub:type="title-page">Titlepage</a>
+          <a href="text/titlepage.xhtml" epub:type="title-page">Titlepage</a>
         </li>
       `);
   }
